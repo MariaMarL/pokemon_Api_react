@@ -2,16 +2,12 @@ import axios from 'axios';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Card from '../components/Card';
+import { IPokemon } from './PokeList';
 
 interface ISearchProps {
 }
-interface IPokemon{
-    name: string,
-    sprites: string,
-    types: string[]
-    id: number
-    type:string
-}
+
 const Search: React.FunctionComponent<ISearchProps> = (props) => {
     const [pokemons, setPokemons] = useState<IPokemon[]>([])
     const [search, setSearch] = useState("")
@@ -20,7 +16,7 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
     const navigate = useNavigate()
 
     const loadData = () => {
-        axios.get('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0')
+        axios.get('https://pokeapi.co/api/v2/pokemon?limit=50&offset=0')
             .then(response => {
                 for (let i = 0; i < response.data.results.length; i++) {
                     axios.get(response.data.results[i].url)
@@ -31,10 +27,10 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
             })
     }
 
-      const onSearch = async (pokeSearch:any) => {
+    const onSearch = async (pokeSearch: any) => {
         const result = await searchPokemon(pokeSearch)
         setState(true)
-        if(!result){
+        if (!result) {
             return setNotFound(true)
         }
         return setPokemons([result])
@@ -51,7 +47,7 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
 
 
     }
-    const searchPokemon = async (pokeSearch:any) => {
+    const searchPokemon = async (pokeSearch: any) => {
         try {
             let url = `https://pokeapi.co/api/v2/pokemon/${pokeSearch}`
             const response = await fetch(url)
@@ -61,17 +57,17 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
         } catch (err) { }
     }
 
-    const pokeClick = async (name:any) => {
+    const pokeClick = async (name: any) => {
         const pokemonClicked = await searchPokemon(name)
         return setPokemons([pokemonClicked])
 
     }
-    const closeButton = (e:React.MouseEvent<HTMLButtonElement>) => {
+    const closeButton = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setState(false)
         navigate('/list')
         return loadData()
-        
+
     }
 
     return (
@@ -91,26 +87,18 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
                                 <label htmlFor="floating_repeat_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Find a pokemon</label>
                                 <button onClick={(e) => onClick(e)} className="w-20 rounded-md bg-indigo-600  py-1 text-indigo-100 hover:bg-indigo-500 hover:shadow-md duration-75">search</button>
                             </div>
-                            {notFound? <div>Pokemon not found</div>:
-                            <div className="grid grid-cols-2 gap-1">
-                                {pokemons.map((pokemon, index) => {
-                                    //return <p key={index}> {pokemon.name}</p>
-                                    return <>
+                            {notFound ? <div>Pokemon not found</div> :
+                                <div className="grid grid-cols-2 gap-1">
+                                    {pokemons.map((pokemon, index) => {
+                                        //return <p key={index}> {pokemon.name}</p>
+                                        return <>
 
-                                        <div onClick={() => pokeClick(pokemon.name)} className="drop-shadow-md border-4 border-dashed border-gray-200 rounded-lg h-full w-40">
-                                            <img src={pokemon.sprites.other['official-artwork'].front_default} alt="plant" className="h-40 w-40" />
-                                            <div className="p-5">
-                                                <p className="flex justify-center text-medium mb-5 text-gray-700 ">{pokemon.name}</p>
-                                                <div className="flex justify-center space-x-4">
-                                                    {pokemon.types.map(pokeType => <button className="w-20 rounded-md bg-indigo-600  py-2 text-indigo-100 hover:bg-indigo-500 hover:shadow-md duration-75">{pokeType.type.name}</button>)}
-                                                </div>
-                                            </div>
-                                        </div>
+                                            <Card pokemon={pokemon} pokeClick={pokeClick} />
 
-                                    </>
-                                })}
-                            </div>}
-                                {state ? <button onClick={(e) => closeButton(e)} className="mt-8 w-20 rounded-md bg-indigo-600  py-1 text-indigo-100 hover:bg-indigo-500 hover:shadow-md duration-75">Return</button> : <></>}
+                                        </>
+                                    })}
+                                </div>}
+                            {state ? <button onClick={(e) => closeButton(e)} className="mt-8 w-20 rounded-md bg-indigo-600  py-1 text-indigo-100 hover:bg-indigo-500 hover:shadow-md duration-75">Return</button> : <></>}
                         </div>
                     </div>
                 </div>
