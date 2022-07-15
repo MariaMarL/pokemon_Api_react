@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Routes } from 'react-router-dom';
 import PokeFavs from '../pages/PokeFavs';
 import PokeList from '../pages/PokeList';
+import Search from '../pages/Search';
 import { logOutInReducer } from '../state/LoggedInSlice';
 import { stateTypeRedux } from '../state/Store';
 
@@ -30,6 +31,7 @@ const NavBarLogged: React.FunctionComponent<INavBarLoggedProps> = (props) => {
                             <div className="hidden md:block">
                                 <div className="ml-10 flex items-baseline space-x-4">
                                     <Link to="/list" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">PokeList</Link>
+                                    <Link to="/search" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Search</Link>
                                     <Link to="/favorites" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Favorites</Link>
 
                                 </div>
@@ -56,6 +58,7 @@ const NavBarLogged: React.FunctionComponent<INavBarLoggedProps> = (props) => {
                 <div className="md:hidden" id="mobile-menu">
                     <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                         <Link to="/list" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">PokeList</Link>
+                        <Link to="/search" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Search</Link>
                         <Link to="/favorites" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Favorites</Link>
 
                     </div>
@@ -79,6 +82,7 @@ const NavBarLogged: React.FunctionComponent<INavBarLoggedProps> = (props) => {
             <Routes>
                 <Route path="/" element={<PokeList />} />
                 <Route path="/list" element={<PokeList />} />
+                <Route path="/search" element={<Search />} />
                 <Route path="/favorites" element={<PokeFavs />} />
 
             </Routes>
