@@ -97,8 +97,8 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
                                     //return <p key={index}> {pokemon.name}</p>
                                     return <>
 
-                                        <div onClick={() => pokeClick(pokemon.name)} className="border-4 border-dashed border-gray-200 rounded-lg h-full">
-                                            <img src={pokemon.sprites.other['official-artwork'].front_default} alt="plant" className="h-auto w-full" />
+                                        <div onClick={() => pokeClick(pokemon.name)} className="drop-shadow-md border-4 border-dashed border-gray-200 rounded-lg h-full w-40">
+                                            <img src={pokemon.sprites.other['official-artwork'].front_default} alt="plant" className="h-40 w-40" />
                                             <div className="p-5">
                                                 <p className="flex justify-center text-medium mb-5 text-gray-700 ">{pokemon.name}</p>
                                                 <div className="flex justify-center space-x-4">

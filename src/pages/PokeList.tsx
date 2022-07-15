@@ -17,9 +17,9 @@ const PokeList: React.FunctionComponent<IPokeListProps> = (props) => {
 
     const [pokemons, setPokemons] = useState<IPokemon[]>([])
     const [state, setState] = useState(false)
-
+    
     const loadData = () => {
-        axios.get('https://pokeapi.co/api/v2/pokemon?limit=5&offset=0')
+        axios.get('https://pokeapi.co/api/v2/pokemon?limit=50&offset=0')
             .then(response => {
                 for (let i = 0; i < response.data.results.length; i++) {
                     axios.get(response.data.results[i].url)
@@ -72,7 +72,7 @@ const PokeList: React.FunctionComponent<IPokeListProps> = (props) => {
                                     //return <p key={index}> {pokemon.name}</p>
                                     return <>
 
-                                        <div onClick={() => pokeClick(pokemon.name)} className="border-4 border-dashed border-gray-200 rounded-lg h-full">
+                                        <div onClick={() => pokeClick(pokemon.name)} className="hover:scale-[1.1] transition duration-150 ease-in-out border-4 border-dashed border-gray-200 rounded-lg h-full">
                                             <img src={pokemon.sprites.other['official-artwork'].front_default} alt="plant" className="h-auto w-full" />
                                             <div className="p-5">
                                                 <p className="flex justify-center text-medium mb-5 text-gray-700 ">{pokemon.name}</p>
