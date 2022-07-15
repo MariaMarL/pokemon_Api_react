@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Route, Routes } from 'react-router-dom';
-import PokeFavs from '../pages/pokeFavs';
+import PokeFavs from '../pages/PokeFavs';
 import PokeList from '../pages/PokeList';
 import { logOutInReducer } from '../state/LoggedInSlice';
 import { stateTypeRedux } from '../state/Store';
@@ -77,6 +77,7 @@ const NavBarLogged: React.FunctionComponent<INavBarLoggedProps> = (props) => {
                 </div>
             </nav>
             <Routes>
+                <Route path="/" element={<PokeList />} />
                 <Route path="/list" element={<PokeList />} />
                 <Route path="/favorites" element={<PokeFavs />} />
 
